@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+</head>
+<body>
+<h1>简单的输出name:</h1>
+<h1>
+    Hello <span th:text=" ${name}"></span>!
+</h1>
+
+<h1>简单的输出list集合:</h1>
+<table border="1">
+    <tr>
+        <th>下标</th>
+        <th>编号</th>
+        <th>用户名</th>
+        <th>出生日期</th>
+        <th>年龄</th>
+        <th>是否在职</th>
+    </tr>
+    <tr th:each="user,status : ${userList}">
+        <td th:text="${status.index}"></td>
+        <td th:text="${status.count}"></td>
+        <td th:text="${user.name}"></td>
+        /* 使用${#dates.format(user.birth, 'yyyy-MM-dd')}可以按照指定的格式解析日期类型的数据*/
+        <td th:text="${#dates.format(user.birth, 'yyyy-MM-dd')}"></td>
+        <td th:text="${user.age}"></td>
+        <td>
+				<span th:switch="${user.onWork}">
+					<span th:case="true">
+						是
+					</span>
+					<span th:case="*">
+						默认值：否
+					</span>
+				</span>
+        </td>
+    </tr>
+</table>
+
+<h1>简单的输出map集合:</h1>
+<table border="1">
+    <tr>
+        <th>map的key</th>
+        <th>编号</th>
+        <th>用户名</th>
+        <th>出生日期</th>
+        <th>年龄</th>
+        <th>是否在职</th>
+    </tr>
+    <tr th:each="user,status : ${userMap}">
+        <td th:text="${user.key}"></td>
+        <td th:text="${status.count}"></td>
+        <td th:text="${user.value.name}"></td>
+        <td th:text="${#dates.format(user.value.birth, 'yyyy-MM-dd')}"></td>
+        <td th:text="${user.value.age}"></td>
+        <td>
+				<span th:switch="${user.value.onWork}">
+					<span th:case="true">
+						是
+					</span>
+					<span th:case="*">
+						默认值：否
+					</span>
+				</span>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
