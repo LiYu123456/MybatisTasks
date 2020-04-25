@@ -57,14 +57,14 @@
         <td th:text="${#dates.format(user.value.birth, 'yyyy-MM-dd')}"></td>
         <td th:text="${user.value.age}"></td>
         <td>
-				<span th:switch="${user.value.onWork}">
-					<span th:case="true">
-						是
-					</span>
-					<span th:case="*">
-						默认值：否
-					</span>
-				</span>
+            <span th:switch="${user.value.onWork}">
+                <span th:case="true">
+                    是
+                </span>
+                <span th:case="*">
+                    默认值：否
+                </span>
+            </span>
         </td>
     </tr>
 </table>
