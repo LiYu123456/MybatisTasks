@@ -31,6 +31,15 @@ public class StudentController {
         userMap.put("4", new User("唐三藏", new Date(), 20, true));
     }
 
+    private Map<String, String> appInfoMap = new HashMap<String, String>();
+    {
+        appInfoMap.put("风控", "1");
+        appInfoMap.put("贸通", "2");
+        appInfoMap.put("非贸", "3");
+        appInfoMap.put("减免税", "4");
+        appInfoMap.put("税管", "5");
+    }
+
     @PostMapping("/insertStudent")
     public void insertStudent(@RequestBody Student student){
         studentService.insertStudent(student);
@@ -41,6 +50,8 @@ public class StudentController {
         model.addAttribute("name","三毛");
         model.addAttribute("userList", userList);
         model.addAttribute("userMap", userMap);
+
+        model.addAttribute("appInfoMap",appInfoMap);
         return "index";
     }
 }

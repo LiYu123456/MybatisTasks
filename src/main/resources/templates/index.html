@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./vue/dist/vue.js"></script>
+  <link rel="stylesheet" href="./element-ui/lib/theme-chalk/index.css">
+  <script src="./element-ui/lib/index.js"></script>
+</head>
+<body>
+  <div id="app">
+    <el-form :model="entityForm" ref="entityForm" :inline="true">
+      <el-card v-for="(item, index) in entityForm.entityList" :key="item.id">
+        <div slot="header">
+          <span>{{ item.entityName }}</span>
+        </div>
+        <div>
+          <el-form-item
+            v-for="(property, proIndex) in item.propertyInfo"
+            :key="item.id"
+            :label="property.propertyName"
+            :prop="'entityList.' + index + '.propertyInfo.' + proIndex + '.value'"
+            :rules="{
+              required: true, message: '请输入', trigger: 'blur'
+            }">
+            <el-input v-model="property.value"></el-input>
+          </el-form-item>
+        </div>
+      </el-card>
+    </el-form>
+    <el-form :inline="true" style="margin-top: 15px;">
+      <el-form-item label="方式" label-width="80px">
+        <el-select>
+          <el-option label="一" value="1"></el-option>
+          <el-option label="二" value="2"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item style="float: right;">
+        <el-button type="primary" @click="onSubmit">查询</el-button>
+      </el-form-item>
+    </el-form>
+    <el-table :data="tableData" stripe>
+      <el-table-column label="列1" prop="name"></el-table-column>
+      <el-table-column label="列1" prop="name"></el-table-column>
+      <el-table-column label="列1" prop="name"></el-table-column>
+    </el-table>
+    <div style="float: right; margin-top: 10px;">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="[100, 200, 300, 400]"
+        :page-size="100"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="400">
+      </el-pagination>
+    </div>
+  </div>
+  <script type="text/javascript">
+    new Vue({
+      el: '#app',
+      data () {
+        return { 
+          entityForm: {
+            entityList: [
+              {
+                entityName: '1',
+                propertyInfo: [
+                  {
+                    propertyName: '11'
+                  },
+                  {
+                    propertyName: '12'
+                  },
+                  {
+                    propertyName: '13'
+                  }
+                ]
+              },
+              {
+                entityName: '2',
+                propertyInfo: [
+                  {
+                    propertyName: '21'
+                  },
+                  {
+                    propertyName: '22'
+                  }
+                ]
+              }
+            ]
+          },
+          tableData: [
+            {name: 'qq'},
+            {name: 'ww'},
+            {name: 'ee'},
+          ],
+          currentPage: 1
+        }
+      },
+      methods: {
+        onSubmit () {
+
+        },
+        handleSizeChange(val) {
+          console.log(`每页 ${val} 条`);
+        },
+        handleCurrentChange(val) {
+          console.log(`当前页: ${val}`);
+        }
+      }
+    })
+  </script>
+  <style scoped>
+    body, div, form {
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+    }
+
+    #app {
+      /* width: 90%; */
+    }
+  </style>
+</body>
+</html>
